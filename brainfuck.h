@@ -15,13 +15,22 @@ enum TokenType {
     INPUT,  // ,
     OUTPUT, // .
     LOOP_START, // [
-    LOOP_END // ]
+    LOOP_END, // ]
+    COMMENT // everything else
 };
 
 
 struct Node {
     enum TokenType type;
     struct Node *next;
+    struct Node *child;
 };
+
+
+enum TokenType getType(char input);
+
+void execution(struct Node);
+
+
 
 #endif //BRIANFUCK_INTERPRETER_BRAINFUCK_H
