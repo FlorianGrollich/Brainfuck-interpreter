@@ -20,6 +20,8 @@ struct Node {
     struct Node *next;
 }
 
+struct Token
+
 
 
 int main() {
