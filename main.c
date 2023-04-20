@@ -4,15 +4,17 @@
 #define TAPE_SIZE 30000
 
 enum TokenType {
-    INCREMENT,
-    DECREMENT,
-    LEFT,
-    RIGHT,
-    INPUT,
-    OUTPUT,
-    LOOP_START,
-    LOOP_END
+    INCREMENT, // +
+    DECREMENT, // -
+    LEFT,   // <
+    RIGHT,  // >
+    INPUT,  // ,
+    OUTPUT, // .
+    LOOP_START, // [
+    LOOP_END // ]
 };
+
+
 
 int main() {
     unsigned char tape[TAPE_SIZE] = {0};
