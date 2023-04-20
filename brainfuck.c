@@ -1,26 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-#define TAPE_SIZE 30000
-
-enum TokenType {
-    INCREMENT, // +
-    DECREMENT, // -
-    LEFT,   // <
-    RIGHT,  // >
-    INPUT,  // ,
-    OUTPUT, // .
-    LOOP_START, // [
-    LOOP_END // ]
-};
+#include "brainfuck.h"
 
 
-struct Node {
-    enum TokenType type;
-    struct Node *next;
-}
 
-struct Token
 
 
 
