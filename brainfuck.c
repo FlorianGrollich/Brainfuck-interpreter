@@ -15,11 +15,18 @@ enum TokenType {
 };
 
 
+struct Node {
+    enum TokenType type;
+    struct Node *next;
+}
+
+
 
 int main() {
     unsigned char tape[TAPE_SIZE] = {0};
     //pointer to the current cell
     char prt = 0;
+
 
     return 0;
 }
