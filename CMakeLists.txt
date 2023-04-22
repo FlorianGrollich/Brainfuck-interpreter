@@ -3,4 +3,4 @@ project(brianfuck_interpreter C)
 
 set(CMAKE_C_STANDARD 23)
 
-add_executable(brianfuck_interpreter brainfuck.c brainfuck.h)
+add_executable(brianfuck_interpreter brainfuck.c brainfuck.h Stack.c)

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "brainfuck.h"
+#include "Stack.h"
 
 
 enum TokenType getType(char input) {
@@ -32,7 +33,7 @@ struct Node* createNode(char input) {
     struct Node* node = malloc(sizeof(struct Node));
     node->type = getType(input);
     node->next = NULL;
-    node->child = NULL;
+    node->parent = NULL;
     return node;
 }
 
@@ -40,11 +41,25 @@ struct Node* createNode(char input) {
 struct Node* parsing(char* input) {
     struct Node* head = NULL;
     struct Node* prevNode = NULL;
+    struct Node* currentParent = NULL;
     for (int i = 0; input[i] != '\0'; i++) {
         struct Node* currentNode = createNode(input[i]);
         if (prevNode != NULL) {
             prevNode->next = currentNode;
+            if (prevNode->type == LOOP_START) {
+                if(currentParent != NULL)
+                    currentNode->parent = currentParent;
+                currentParent = currentNode;
+            }
+            else if(prevNode->type == LOOP_END) {
+                currentNode->parent = currentParent;
+                currentParent = NULL;
+            }
+            else if(currentParent != NULL) {
+                currentNode->parent = currentParent;
+            }
         }
+
         prevNode = currentNode;
         if (head == NULL) {
             head = currentNode;
@@ -56,8 +71,7 @@ struct Node* parsing(char* input) {
 int main() {
     unsigned char tape[TAPE_SIZE] = {0};
     //pointer to the current cell
-    char prt = 97;
-    char* input = "+>[-]<.";
+    char* input = "+[++[--]]<.";
     struct Node* head = parsing(input);
     struct Node* currentNode = head;
     while (currentNode != NULL) {

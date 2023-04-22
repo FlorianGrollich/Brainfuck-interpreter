@@ -23,7 +23,7 @@ enum TokenType {
 struct Node {
     enum TokenType type;
     struct Node *next;
-    struct Node *child;
+    struct Node *parent;
 };
 
 
