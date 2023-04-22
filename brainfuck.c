@@ -42,24 +42,13 @@ struct Node* parsing(char* input) {
     struct Node* head = NULL;
     struct Node* prevNode = NULL;
     struct Node* currentParent = NULL;
+    Stack loopStack;
+    init_stack(&loopStack);
     for (int i = 0; input[i] != '\0'; i++) {
         struct Node* currentNode = createNode(input[i]);
         if (prevNode != NULL) {
             prevNode->next = currentNode;
-            if (prevNode->type == LOOP_START) {
-                if(currentParent != NULL)
-                    currentNode->parent = currentParent;
-                currentParent = currentNode;
-            }
-            else if(prevNode->type == LOOP_END) {
-                currentNode->parent = currentParent;
-                currentParent = NULL;
-            }
-            else if(currentParent != NULL) {
-                currentNode->parent = currentParent;
-            }
         }
-
         prevNode = currentNode;
         if (head == NULL) {
             head = currentNode;
