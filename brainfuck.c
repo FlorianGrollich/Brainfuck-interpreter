@@ -45,6 +45,7 @@ struct Node* parsing(char* input) {
     init_stack(&loopStack);
     for (int i = 0; input[i] != '\0'; i++) {
         struct Node* currentNode = createNode(input[i]);
+
         if (prevNode != NULL) {
             prevNode->next = currentNode;
         }
@@ -54,6 +55,10 @@ struct Node* parsing(char* input) {
         }
         if(currentNode->type == LOOP_START) {
             push(&loopStack, currentNode);
+        }
+        if(currentNode->type == LOOP_END) {
+            currentNode->parent = pop(&loopStack);
+
         }
     }
     return head;
