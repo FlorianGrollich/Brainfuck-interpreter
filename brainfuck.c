@@ -53,6 +53,9 @@ struct Node* parsing(char* input) {
         if (head == NULL) {
             head = currentNode;
         }
+        if(currentNode->type == LOOP_START) {
+            push(&loopStack, currentNode);
+        }
     }
     return head;
 }
