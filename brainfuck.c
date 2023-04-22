@@ -41,7 +41,6 @@ struct Node* createNode(char input) {
 struct Node* parsing(char* input) {
     struct Node* head = NULL;
     struct Node* prevNode = NULL;
-    struct Node* currentParent = NULL;
     Stack loopStack;
     init_stack(&loopStack);
     for (int i = 0; input[i] != '\0'; i++) {
