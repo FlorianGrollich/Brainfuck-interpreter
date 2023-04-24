@@ -105,7 +105,7 @@ void execute_code(struct Node* head) {
                 }
                 break;
             case LOOP_END:
-                if (tape[0] != 0) {
+                if (tape[tapeIndex] != 0) {
                     currentNode = currentNode->loopStart;
                 }
                 break;
@@ -118,7 +118,7 @@ void execute_code(struct Node* head) {
 
 int main() {
     unsigned char tape[TAPE_SIZE] = {0};
-    char* input = "++++++++++[>+>+++>+++++++>++++++++++<<<<-]>>>+++++++.-----------.-------.+++++++++++++.-----------.+++.>++++.-------.";
+    char* input = "-[------->+<]>---.--[--->+<]>.+++.+++.---------.--------.+++++++++++++.";
     struct Node* head = parsing(input);
     execute_code(head);
     return 0;
