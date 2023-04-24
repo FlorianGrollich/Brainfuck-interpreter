@@ -33,7 +33,7 @@ struct Node* createNode(char input) {
     struct Node* node = malloc(sizeof(struct Node));
     node->type = getType(input);
     node->next = NULL;
-    node->parent = NULL;
+    node->loopStart = NULL;
     return node;
 }
 
@@ -57,16 +57,67 @@ struct Node* parsing(char* input) {
             push(&loopStack, currentNode);
         }
         if(currentNode->type == LOOP_END) {
-            currentNode->parent = pop(&loopStack);
+            struct Node* loopStart = pop(&loopStack);
+            loopStart->loopEnd = currentNode;
+            currentNode->loopStart = loopStart;
 
         }
     }
     return head;
 }
 
+
+void execute_code(struct Node* head) {
+    unsigned char tape[TAPE_SIZE] = {0};
+    int tapeIndex = 0;
+    struct Node* currentNode = head;
+    while (currentNode != NULL) {
+        switch (currentNode->type) {
+            case INCREMENT:
+                tape[tapeIndex]++;
+                break;
+            case DECREMENT:
+                tape[tapeIndex]--;
+                break;
+            case LEFT:
+                if(tapeIndex == 0) {
+                    tapeIndex = TAPE_SIZE - 1;
+                } else {
+                    tapeIndex--;
+                }
+                break;
+            case RIGHT:
+                if(tapeIndex == TAPE_SIZE - 1) {
+                    tapeIndex = 0;
+                } else {
+                    tapeIndex++;
+                }
+                break;
+            case INPUT:
+                scanf("%c", tape);
+                break;
+            case OUTPUT:
+                printf("%c", tape[tapeIndex]);
+                break;
+            case LOOP_START:
+                if (tape[tapeIndex] == 0) {
+                    currentNode = currentNode->loopStart;
+                }
+                break;
+            case LOOP_END:
+                if (tape[0] != 0) {
+                    currentNode = currentNode->loopStart;
+                }
+                break;
+            default:
+                break;
+        }
+        currentNode = currentNode->next;
+    }
+}
+
 int main() {
     unsigned char tape[TAPE_SIZE] = {0};
-    //pointer to the current cell
     char* input = "+[++[--]]<.";
     struct Node* head = parsing(input);
     struct Node* currentNode = head;
