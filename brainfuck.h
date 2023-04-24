@@ -30,8 +30,7 @@ struct Node {
 
 enum TokenType getType(char input);
 
-void execution(struct Node);
-
+void execute_code(struct Node* head);
 
 
 #endif //BRIANFUCK_INTERPRETER_BRAINFUCK_H
