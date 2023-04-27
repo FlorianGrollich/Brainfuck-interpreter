@@ -63,6 +63,10 @@ struct Node* parsing(char* input) {
 
         }
     }
+    if(loopStack.top != -1) {
+        printf("Error: Loop not closed.\n");
+        exit(1);
+    }
     return head;
 }
 
@@ -117,8 +121,7 @@ void execute_code(struct Node* head) {
 }
 
 int main() {
-    unsigned char tape[TAPE_SIZE] = {0};
-    char* input = "-[------->+<]>---.--[--->+<]>.+++.+++.---------.--------.+++++++++++++.";
+    char* input = "-[[------->+<]>---.--[--->+<]>.+++.+++.---------.--------.+++++++++++++.";
     struct Node* head = parsing(input);
     execute_code(head);
     return 0;
