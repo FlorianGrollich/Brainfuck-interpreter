@@ -121,7 +121,7 @@ void execute_code(struct Node* head) {
 }
 
 int main() {
-    char* input = "-[[------->+<]>---.--[--->+<]>.+++.+++.---------.--------.+++++++++++++.";
+    char* input = "-[------->+<]>---.--[--->+<]>.+++.+++.---------.--------.+++++++++++++.";
     struct Node* head = parsing(input);
     execute_code(head);
     return 0;
